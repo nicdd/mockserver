@@ -7,7 +7,7 @@ module.exports = {
         let fss = require('fs');
         const csvvv = require('fast-csv');
         //console.log('Endpoint GET:' + req.path + ' Datenladen versuch:' + JSON.stringify(req.body));
-        let loadFromFile = '../Datenbank/testods1.csv';
+        let loadFromFile = '../../Datenbank/testods1.csv';
         let myJsonResponse = [];
         let stream = null;
         try {
