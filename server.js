@@ -3,9 +3,6 @@ const app = express();
 var fs = require('fs');
 const csv = require('fast-csv');
 
-var tools = require('./aaa');
-console.log(typeof tools.foo); // => 'function'
-console.log(typeof tools.bar); // => 'function'
 
 const cors = require('cors')
 
