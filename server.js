@@ -32,7 +32,9 @@ app.use(function (req, res, next) {
 
 
     if (req.method === "GET") {
+        console.log('get called for req.originalUrl' + req.originalUrl)
         if (req.originalUrl.includes('/api') || req.originalUrl.includes('/loadCSV')) {
+            //rest ressources -payloads
             let quelle = require('.' + req.originalUrl + "/get");
             console.log('get method called')
             return quelle.get(req, res)
@@ -41,10 +43,13 @@ app.use(function (req, res, next) {
             if (req.originalUrl === "/") {
                 res.sendFile('index.html', { root: __dirname });
             } else {
+                // html ressouces (bower comps, imges ...)
                 res.sendFile(req.originalUrl, { root: __dirname });
             }
         }
     } else if (req.method === "POST" || (req.method === "OPTIONS" && req.body)) {
+        console.log('post called for req.originalUrl' + req.originalUrl)
+        console.log('req.body' + JSON.stringify(res.body))
         let quelle = require('.' + req.originalUrl + "/post");
         console.log('post method called with' + req.method)
         return quelle.post(req, res)
