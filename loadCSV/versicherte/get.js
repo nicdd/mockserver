@@ -23,11 +23,12 @@ module.exports = {
         csvv
             .fromStream(stream)
             .on("data", function (data) {
-                //console.log(data);
+                console.log(data);
                 myJsonResponse.push(data);
             })
             .on("end", function () {
                 console.log("done");
+                
                 res.send(myJsonResponse)
             });
     }

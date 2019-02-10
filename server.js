@@ -14,6 +14,7 @@ var corsOptions = {
 
 const bodyParser = require('body-parser');
 app.use(bodyParser.json());
+app.use(bodyParser.text());
 app.use(express.static('public'));
 
 //app.use(cors(corsOptions))
@@ -48,12 +49,13 @@ app.use(function (req, res, next) {
             }
         }
     } else if (req.method === "POST" || (req.method === "OPTIONS" && req.body)) {
-        console.log('post called for req.originalUrl' + req.originalUrl)
-        console.log('req.body' + JSON.stringify(res.body))
-        let quelle = require('.' + req.originalUrl + "/post");
-        console.log('post method called with' + req.method)
-        return quelle.post(req, res)
-    }
+            console.log('post called for req.originalUrl' + req.originalUrl)
+            let quelle = require('.' + req.originalUrl + "/post");
+            console.log('post method called with' + req.method)
+            return quelle.post(req, res)
+        }
+
+   
     //return next();
 });
 
