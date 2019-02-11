@@ -12,7 +12,7 @@ module.exports = {
                 return;
             }
             console.log('Succesfully POST at path' + req.path);
-            res.status(201).send(req.body);
+            res.status(201).send({path: saveToFile});
         });
     }
 };
