@@ -34,7 +34,7 @@ app.use(function (req, res, next) {
 
     if (req.method === "GET") {
         console.log('get called for req.originalUrl' + req.originalUrl)
-        if (req.originalUrl.includes('/api') || req.originalUrl.includes('/loadCSV')) {
+        if ( req.originalUrl.includes('/api') || req.originalUrl.includes('/loadCSV') || req.originalUrl.includes('/auth')) {
             //rest ressources -payloads
             let quelle = require('.' + req.originalUrl + "/get");
             console.log('get method called')
