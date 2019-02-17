@@ -1,0 +1,6 @@
+{
+    "username": "nic",
+    "authorities": ["ROLE_LOGIN_gts_my"],
+    "authenticated": true,
+    "gartenbzrk": null
+}
