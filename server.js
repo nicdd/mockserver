@@ -14,8 +14,8 @@ var corsOptions = {
 
 const bodyParser = require('body-parser');
 
-app.use(bodyParser.json({limit: '50mb'}));
-app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
+app.use(bodyParser.json({ limit: '50mb' }));
+app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
 
 //app.use(bodyParser.json());
 app.use(bodyParser.text());
@@ -38,7 +38,7 @@ app.use(function (req, res, next) {
 
     if (req.method === "GET") {
         console.log('get called for req.originalUrl' + req.originalUrl)
-        if ( req.originalUrl.includes('/api') || req.originalUrl.includes('/loadCSV') || req.originalUrl.includes('/auth')) {
+        if (req.originalUrl.includes('/api') || req.originalUrl.includes('/loadCSV') || req.originalUrl.includes('/auth')) {
             //rest ressources -payloads
             let quelle = require('.' + req.originalUrl + "/get");
             console.log('get method called')
@@ -53,13 +53,19 @@ app.use(function (req, res, next) {
             }
         }
     } else if (req.method === "POST" || (req.method === "OPTIONS" && req.body)) {
-            console.log('post called for req.originalUrl' + req.originalUrl)
+        console.log('post called for req.originalUrl' + req.originalUrl)
+        try {
             let quelle = require('.' + req.originalUrl + "/post");
-            console.log('post method called with' + req.method)
             return quelle.post(req, res)
+        } catch (err) {
+            console.log('leider nicht geklappt' + JSON.stringify(err))
+            res.sendStatus(400);//return Promise.reject(err);
         }
 
-   
+
+    }
+
+
     //return next();
 });
 
