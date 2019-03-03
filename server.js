@@ -61,8 +61,17 @@ app.use(function (req, res, next) {
             console.log('leider nicht geklappt' + JSON.stringify(err))
             res.sendStatus(400);//return Promise.reject(err);
         }
-
-
+    } else if (req.method === "DELETE" || (req.method === "OPTIONS" && req.body)) {
+        console.log('delete called for req.originalUrl' + req.originalUrl)
+        try {
+            let gartenNummer = req.originalUrl.split('/').pop();
+            let ressourceUrl = req.originalUrl.substring(0,req.originalUrl.lastIndexOf('/'));
+            let quelle = require('.' + ressourceUrl + "/delete");
+            return quelle.delete(ressourceUrl, res, gartenNummer)
+        } catch (err) {
+            console.log('leider nicht geklappt' + JSON.stringify(err))
+            res.sendStatus(400);//return Promise.reject(err);
+        }
     }
 
 
