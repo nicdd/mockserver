@@ -1,7 +1,7 @@
 module.exports = {
 
 
-    post: function (req, res) {
+    post: function (req, res, gartennummer) {
         console.log('post versicherteR called')
         let fs = require('fs');
         let baseDataDirectory = "./public";
@@ -15,22 +15,29 @@ module.exports = {
                 newVersicherte = {
                     "data": [],
                     "columns": [
-                        "NAME",
-                        "VORNAME",
-                        "GaNr",
-                        "STRASSE",
-                        "PLZ",
-                        "ORT",
-                        "SA",
-                        "UV",
-                        "Beitrag",
-                        "A 7.3",
-                        "Solar",
+                        "Garten",
+                        "Anrede",
+                        "Nachname",
+                        "Vorname",
+                        "Geburtsdatum",
+                        "Strasse",
+                        "Hausnummer",
+                        "Postleitzahl",
+                        "Wohnort",
+                        "Fläche",
+                        "Telefon",
+                        "E-Mail",
+                        "Bemerkungen",
                         "GBV",
                         "FED",
-                        "HöV ",
-                        "",
-                        "Bemerkung"
+                        "HöV",
+                        "SA",
+                        "A 7.3",
+                        "Solar",
+                        "UV",
+                        "Beitrag",
+                        "Bemerkung",
+                        "Weg"
                     ]
                 }
             } else {
@@ -39,7 +46,7 @@ module.exports = {
 
 
 
-            const index = newVersicherte.data.findIndex(v => v.GaNr === req.body.GaNr)
+            const index = newVersicherte.data.findIndex(v => v.GARTENNUMMER === gartennummer)
 
             if (index === -1) {
                 newVersicherte.data.push(req.body);
@@ -55,11 +62,11 @@ module.exports = {
                 //console.log('Succesfully POST at path' + path);
                 res.status(201).send(req.body);
             });
-            
+
         });
 
 
 
-        
+
     }
 };

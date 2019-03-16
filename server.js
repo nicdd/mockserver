@@ -38,10 +38,18 @@ app.use(function (req, res, next) {
 
     if (req.method === "GET") {
         console.log('get called for req.originalUrl' + req.originalUrl)
-        if (req.originalUrl.includes('/api') || req.originalUrl.includes('/loadCSV') || req.originalUrl.includes('/auth')) {
-            //rest ressources -payloads
-            let quelle = require('.' + req.originalUrl + "/get");
+        if (req.originalUrl.includes('/api') || req.originalUrl.includes('/loadCSV')) {
+            
+            let moduleNameComponents = req.originalUrl.split('/');
+            console.log('modulenamecomponents ist' + JSON.stringify(moduleNameComponents))
+            let moduleName = "/" + moduleNameComponents[1] + "/" + moduleNameComponents[2];
+            let quelle = require('.' + moduleName + "/get");
             console.log('get method called')
+            if(moduleNameComponents.length > 3){
+                return quelle.get(req, res, moduleNameComponents[3])
+            } else return quelle.get(req, res)
+        } else if (req.originalUrl.includes('/auth')){
+            let quelle = require('.' + req.originalUrl + "/get");
             return quelle.get(req, res)
         } else {
             let __dirname = "../myapp";
@@ -55,8 +63,23 @@ app.use(function (req, res, next) {
     } else if (req.method === "POST" || (req.method === "OPTIONS" && req.body)) {
         console.log('post called for req.originalUrl' + req.originalUrl)
         try {
-            let quelle = require('.' + req.originalUrl + "/post");
-            return quelle.post(req, res)
+            let moduleNameComponents = req.originalUrl.split('/');
+            console.log('modulenamecomponents ist' + JSON.stringify(moduleNameComponents))
+            let moduleName = "/" + moduleNameComponents[1] + "/" + moduleNameComponents[2];
+            let quelle = require('.' + moduleName + "/post");
+            if(moduleNameComponents.length > 3){
+                return quelle.post(req, res, moduleNameComponents[3]);
+            } else return quelle.post(req, res);
+        } catch (err) {
+            console.log('leider nicht geklappt' + JSON.stringify(err))
+            res.sendStatus(400);//return Promise.reject(err);
+        }
+    } else if (req.method === "PUT" || (req.method === "OPTIONS" && req.body)) {
+        console.log('PUT called for req.originalUrl' + req.originalUrl)
+        try {
+            
+            let quelle = require('.' + req.originalUrl + "/put");
+            return quelle.put(req, res);
         } catch (err) {
             console.log('leider nicht geklappt' + JSON.stringify(err))
             res.sendStatus(400);//return Promise.reject(err);

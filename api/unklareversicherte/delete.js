@@ -2,7 +2,7 @@ module.exports = {
 
 
     delete: function (ressourceUrl, res, gartenNummer) {
-        console.log('delete versicherter called')
+        console.log('delete unklarer versicherter called')
         let fs = require('fs');
         let baseDataDirectory = "./public";
         let dbFilePath = [baseDataDirectory, ressourceUrl.split('/').pop()].join('/') + '.json';
