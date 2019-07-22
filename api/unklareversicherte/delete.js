@@ -15,9 +15,9 @@ module.exports = {
             } else {
                 dbVersicherte = JSON.parse(data);
             }
-
-            const index = dbVersicherte.data.findIndex(v => v.GARTENNUMMER === gartenNummer)
-
+            console.log('dbversichertedata' + JSON.stringify(dbVersicherte.data))
+            let index = dbVersicherte.data.findIndex(v => v.GARTENNUMMER === gartenNummer)
+            console.log('index of deleted war' + index + ' gartennummer' + gartenNummer);
             if (index === -1) {
                 res.sendStatus(204);
                 return;

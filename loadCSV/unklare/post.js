@@ -1,14 +1,14 @@
 module.exports = {
     post: function (req, res) {
-        console.log('post versicherte called')
+        console.log('post unklare called')
         let fs = require('fs');
-        let baseDataDirectory = "../../Datenbank";
+        let baseDataDirectory = '../../Datenbank';
         
         let saveToFile = [baseDataDirectory, req.path.split('/').pop()].join('/') + '.csv';
-
+        console.log('post unklare called into saveToFile:' + saveToFile)
         fs.writeFile(saveToFile, req.body, function (err) {
             if (err) {
-                console.error('post versicherte failed' + JSON.stringify(err))
+                console.error('post unklare failed' + JSON.stringify(err))
                 res.status(404).send('Data not saved');
                 return;
             }
