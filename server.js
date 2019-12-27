@@ -42,11 +42,24 @@ app.use(function (req, res, next) {
             
             let moduleNameComponents = req.originalUrl.split('/');
             console.log('modulenamecomponents ist' + JSON.stringify(moduleNameComponents))
-            let moduleName = "/" + moduleNameComponents[1] + "/" + moduleNameComponents[2];
-            let quelle = require('.' + moduleName + "/get");
+            let moduleName = "";
+            
+            let anId = null;
             console.log('get method called')
-            if(moduleNameComponents.length > 3){
-                return quelle.get(req, res, moduleNameComponents[3])
+            if (moduleNameComponents.some((elem) => elem === "loggs")){
+                moduleName += "/" + moduleNameComponents[1] + "/" + moduleNameComponents[2] + "/" + moduleNameComponents[3];
+                if (moduleNameComponents.length > 4){
+                    anId = moduleNameComponents[4];
+                }
+            } else {
+                moduleName += "/" + moduleNameComponents[1] + "/" + moduleNameComponents[2];
+                if (moduleNameComponents.length > 3){
+                    anId = moduleNameComponents[3];
+                }
+            }
+            let quelle = require('.' + moduleName + "/get");
+            if(anId !== null){
+                return quelle.get(req, res, anId)
             } else return quelle.get(req, res)
         } else if (req.originalUrl.includes('/auth')){
             let quelle = require('.' + req.originalUrl + "/get");
@@ -64,11 +77,25 @@ app.use(function (req, res, next) {
         console.log('post called for req.originalUrl' + req.originalUrl)
         try {
             let moduleNameComponents = req.originalUrl.split('/');
+            let moduleName = "";
+            let anId = null;
             console.log('modulenamecomponents ist' + JSON.stringify(moduleNameComponents))
-            let moduleName = "/" + moduleNameComponents[1] + "/" + moduleNameComponents[2];
+            if (moduleNameComponents.some((elem) => elem === "loggs")){
+                moduleName += "/" + moduleNameComponents[1] + "/" + moduleNameComponents[2] + "/" + moduleNameComponents[3];
+                if (moduleNameComponents.length > 4){
+                    anId = moduleNameComponents[4];
+                }
+            } else {
+                moduleName += "/" + moduleNameComponents[1] + "/" + moduleNameComponents[2];
+                if (moduleNameComponents.length > 3){
+                    anId = moduleNameComponents[3];
+                }
+            }
+
+            
             let quelle = require('.' + moduleName + "/post");
-            if(moduleNameComponents.length > 3){
-                return quelle.post(req, res, moduleNameComponents[3]);
+            if(anId !== null){
+                return quelle.post(req, res, anId);
             } else return quelle.post(req, res);
         } catch (err) {
             console.log('leider nicht geklappt' + JSON.stringify(err))
