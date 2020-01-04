@@ -27,8 +27,12 @@ module.exports = {
             fs.readFile(saveToFile, (err, data) => {
                 let newHistory = [];
                 if (err) {
-                    res.status(404).send('No Paechter Tabelle Found');
-
+                    if(err.code === "ENOENT"){
+                        console.log('Datei ' + err.path + ' nicht gefunden, eine wird kreiert ...');
+                    } else {
+                        res.status(404).send('No Paechter Tabelle Found');
+                        return;
+                    }
                 } else {
                     newHistory = JSON.parse(data);
                 }
