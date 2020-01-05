@@ -75,9 +75,9 @@ app.use(function (req, res, next) {
         }
     } else if (req.method === "POST" || (req.method === "OPTIONS" && req.body)) {
         console.log('post called for req.originalUrl' + req.originalUrl)
+        let moduleName = "";
         try {
             let moduleNameComponents = req.originalUrl.split('/');
-            let moduleName = "";
             let anId = null;
             console.log('modulenamecomponents ist' + JSON.stringify(moduleNameComponents))
             if (moduleNameComponents.some((elem) => elem === "loggs")){
@@ -98,8 +98,9 @@ app.use(function (req, res, next) {
                 return quelle.post(req, res, anId);
             } else return quelle.post(req, res);
         } catch (err) {
-            console.log('leider nicht geklappt' + JSON.stringify(err))
-            res.sendStatus(400);//return Promise.reject(err);
+            console.log('leider nicht geklapptttttt' + JSON.stringify(err))
+            //res.sendStatus(400);//return Promise.reject(err);
+            res.status(400).send('Fehler bei der Suche nach dem Modul :' + moduleName);
         }
     } else if (req.method === "PUT" || (req.method === "OPTIONS" && req.body)) {
         console.log('PUT called for req.originalUrl' + req.originalUrl)
