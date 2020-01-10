@@ -23,7 +23,7 @@ module.exports = {
                 let toUpdate = req.body.data;
 
                 toUpdate.forEach((up)=>{
-                    let idxInOld = newFoerdermitglieder.findIndex(v => v.AUFNAHMEDATUM === up.AUFNAHMEDATUM);
+                    let idxInOld = newFoerdermitglieder.findIndex(v => v.id === up.id);
                     if(idxInOld || idxInOld === 0){
                         newFoerdermitglieder.splice(idxInOld, 1, up);
                     }

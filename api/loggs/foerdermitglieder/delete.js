@@ -8,24 +8,24 @@ module.exports = {
         let dbFilePath = [baseDataDirectory, ressourceUrl.split('/').pop()].join('/') + '.json';
 
         fs.readFile(dbFilePath, (err, data) => {
-            let dbFoerderMits = null;
+            let dbFoerdermitglieder = null;
             if (err) {
                 res.status(404).send('The Db-File could not be read.');
                 return;
             } else {
-                dbFoerderMits = JSON.parse(data);
+                dbFoerdermitglieder = JSON.parse(data);
             }
 
-            const index = dbFoerderMits.findIndex(v => v.AUFNAHMEDATUM === ident)
+            const index = dbFoerdermitglieder.findIndex(v => v.id === ident)
 
             if (index === -1) {
                 res.sendStatus(204);
                 return;
             } else {
-                dbFoerderMits.splice(index, 1)
+                dbFoerdermitglieder.splice(index, 1)
             }
 
-            fs.writeFile(dbFilePath, JSON.stringify(dbFoerderMits), function (err) {
+            fs.writeFile(dbFilePath, JSON.stringify(dbFoerdermitglieder), function (err) {
                 if (err) {
                     res.status(404).send('After the deletion, Data could not be saved to DB');
                     return;
