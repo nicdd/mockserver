@@ -24,7 +24,7 @@ module.exports = {
            // dann ist get all paechter
         res.send(allPaechter);
        } else {
-            const theGesuchter = allPaechter.data.find((p)=> p.GARTENNUMMER === gartennummer);
+            const theGesuchter = allPaechter.find((p)=> p.GARTENNUMMER === gartennummer);
             if (theGesuchter){
                 res.send(theGesuchter)
             } else {

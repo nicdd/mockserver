@@ -20,12 +20,12 @@ module.exports = {
                     newVersicherte = JSON.parse(data);
                 }
 
-                let toUpdate = req.body.data;
+                let toUpdate = req.body;
 
                 toUpdate.forEach((up)=>{
-                    let idxInOld = newVersicherte.data.findIndex(v => v.GARTENNUMMER === up.GARTENNUMMER);
+                    let idxInOld = newVersicherte.findIndex(v => v.GARTENNUMMER === up.GARTENNUMMER);
                     if(idxInOld || idxInOld === 0){
-                        newVersicherte.data.splice(idxInOld, 1, up);
+                        newVersicherte.splice(idxInOld, 1, up);
                     }
                 })
 

@@ -33,12 +33,12 @@ module.exports = {
                     newVersicherte = JSON.parse(data);
                 }
 
-                const index = newVersicherte.data.findIndex(v => v.GARTENNUMMER === gartennummer)
+                const index = newVersicherte.findIndex(v => v.GARTENNUMMER === gartennummer)
 
                 if (index === -1) {
-                    newVersicherte.data.push(req.body);
+                    newVersicherte.push(req.body);
                 } else {
-                    newVersicherte.data[index] = req.body;
+                    newVersicherte[index] = req.body;
                 }
 
                 fs.writeFile(saveToFile, JSON.stringify(newVersicherte), function (err) {

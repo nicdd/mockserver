@@ -20,7 +20,7 @@ module.exports = {
                     newFoerdermitglieder = JSON.parse(data);
                 }
 
-                let toUpdate = req.body.data;
+                let toUpdate = req.body;
 
                 toUpdate.forEach((up)=>{
                     let idxInOld = newFoerdermitglieder.findIndex(v => v.AUFNAHMEDATUM === up.AUFNAHMEDATUM);
