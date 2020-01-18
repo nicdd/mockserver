@@ -16,13 +16,13 @@ module.exports = {
                 dbVersicherte = JSON.parse(data);
             }
 
-            const index = dbVersicherte.data.findIndex(v => v.GARTENNUMMER === gartenNummer)
+            const index = dbVersicherte.findIndex(v => v.GARTENNUMMER === gartenNummer)
 
             if (index === -1) {
                 res.sendStatus(204);
                 return;
             } else {
-                dbVersicherte.data.splice(index, 1)
+                dbVersicherte.splice(index, 1)
             }
 
             fs.writeFile(dbFilePath, JSON.stringify(dbVersicherte), function (err) {
@@ -31,7 +31,7 @@ module.exports = {
                     return;
                 }
                 //console.log('Succesfully POST at path' + path);
-                res.sendStatus(201);
+                res.sendStatus(200);
                 return;
             });
             

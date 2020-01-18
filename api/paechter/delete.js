@@ -8,30 +8,30 @@ module.exports = {
         let dbFilePath = [baseDataDirectory, ressourceUrl.split('/').pop()].join('/') + '.json';
 
         fs.readFile(dbFilePath, (err, data) => {
-            let dbVersicherte = null;
+            let dbPaechter = null;
             if (err) {
                 res.status(404).send('The Db-File could not be read.');
                 return;
             } else {
-                dbVersicherte = JSON.parse(data);
+                dbPaechter = JSON.parse(data);
             }
 
-            const index = dbVersicherte.findIndex(v => v.GARTENNUMMER === gartenNummer)
+            const index = dbPaechter.findIndex(v => v.GARTENNUMMER === gartenNummer)
 
             if (index === -1) {
                 res.sendStatus(204);
                 return;
             } else {
-                dbVersicherte.splice(index, 1)
+                dbPaechter.splice(index, 1)
             }
 
-            fs.writeFile(dbFilePath, JSON.stringify(dbVersicherte), function (err) {
+            fs.writeFile(dbFilePath, JSON.stringify(dbPaechter), function (err) {
                 if (err) {
                     res.status(404).send('After the deletion, Data could not be saved to DB');
                     return;
                 }
                 //console.log('Succesfully POST at path' + path);
-                res.sendStatus(201);
+                res.sendStatus(200);
                 return;
             });
             
