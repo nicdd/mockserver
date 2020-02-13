@@ -22,7 +22,10 @@ module.exports = {
        let allPaechter = JSON.parse(data)
        if(!gartennummer){
            // dann ist get all paechter
-        res.send(allPaechter);
+           res.setTimeout(2000, function(){
+            res.send(allPaechter);
+           })
+        //res.send(allPaechter);
        } else {
             const theGesuchter = allPaechter.find((p)=> p.GARTENNUMMER === gartennummer);
             if (theGesuchter){

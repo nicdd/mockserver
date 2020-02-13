@@ -2,7 +2,7 @@ module.exports = {
 
 
     get: function (req, res, ident) {
-        console.log('getfoerdermitglieder called + ident ' + ident + " req.path:" + req.path)
+        console.log('getpassivefm called + ident ' + ident + " req.path:" + req.path)
         let fs = require('fs');
         let baseDataDirectory = "./public";
         let dateiname = req.path.split('/').pop();
@@ -19,14 +19,14 @@ module.exports = {
             }
             //console.log('Succesfully GET at path' + path + ' data:' + data);
             // console.log('mdata' + JSON.stringify(data))
-            let allFoerdermitglieder = JSON.parse(data)
+            let allPassivefm = JSON.parse(data)
             if (!ident) {
-                // dann ist get all foerdermitglieder
+                // dann ist get all passivefm
                 res.setTimeout(2000, function () {
-                    res.send(allFoerdermitglieder);
+                    res.send(allPassivefm);
                 })
             } else {
-                const theGesuchter = allFoerdermitglieder.find((p) => p.AUFNAHMEDATUM === ident);
+                const theGesuchter = allPassivefm.find((p) => p.AUFNAHMEDATUM === ident);
                 if (theGesuchter) {
                     res.send(theGesuchter)
                 } else {

@@ -7,19 +7,21 @@ module.exports = {
         let baseDataDirectory = "./public";
 
         let loadFromFile = [baseDataDirectory, req.path.split('/').pop()].join('/') + '.json';
-    
 
-    fs.readFile(loadFromFile, (err, data) => {
-        if (err){
-            console.log('error mdata loadfromfle' + loadFromFile)
-            res.status(204).send('Data not saved');
-            return;
-        }
-        //console.log('Succesfully GET at path' + path + ' data:' + data);
-       // console.log('mdata' + JSON.stringify(data))
-        res.send(JSON.parse(data));
-    });
 
-        
+        fs.readFile(loadFromFile, (err, data) => {
+            if (err) {
+                console.log('error mdata loadfromfle' + loadFromFile)
+                res.status(204).send('Data not saved');
+                return;
+            }
+            //console.log('Succesfully GET at path' + path + ' data:' + data);
+            // console.log('mdata' + JSON.stringify(data))
+            res.setTimeout(2000, function () {
+                res.send(JSON.parse(data));
+            })
+        });
+
+
     }
 };
